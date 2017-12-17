@@ -1,0 +1,71 @@
+%#
+%# $Id$
+%#
+% layout 'default';
+% title 'VAM';
+
+% use Mojo::Util qw(dumper);
+
+% my $req = $c->req;
+% my $u = $c->app->user;
+
+<h5 class="text-center">
+    Accounts <a href="/user/list"><i class="fi-refresh"></i></a>
+    <a class="float-right button tiny" href="/user/add/form">
+        <i class="fi-plus"></i>
+    </a>
+</h5>
+
+% my $list = $u->user_list;
+
+<table class="hover" id="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>login</th>
+            <th>gecos</th>
+            <th><i class="fi-address-book"></i></th>
+            <th><i class="fi-pencil"></i></th>
+            <th><i class="fi-trash"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+    % my $n = 0;
+    % if ($list) {
+        % foreach my $row (@$list) {
+            % $n += 1;
+            % my $name = $row->{name};
+            % my $gecos = $row->{gecos};
+            % my $user_id = $row->{id};
+            % my $domain_id = $row->{domain_id};
+            <tr>
+                <td><%= $n %></td>
+                <td><%= $name %></td>
+                <td><%= $gecos %></td>
+                <td><a href="/user/rename/form?user_id=<%= $user_id %>"><i class="fi-address-book"></i></a></td>
+                <td><a href="/user/update/form?user_id=<%= $user_id %>"><i class="fi-pencil"></i></a></td>
+                <td><a href="/user/delete/form?user_id=<%= $user_id %>"><i class="fi-trash"></i></a></td>
+            </tr>
+        % }
+    % }
+    </tbody>
+</table>
+
+<script>
+$.extend(true, $.fn.dataTable.defaults, {
+    "searching": true,
+    "ordering": true,
+    "language": {
+        "search": "",
+        "lengthMenu": "_MENU_",
+        "info": "_START_-_END_ of _TOTAL_",
+        "infoEmpty": "",
+    },
+});
+
+$(document).ready(function() {
+    $('#table').DataTable();
+});
+</script>
+%# EOF
+

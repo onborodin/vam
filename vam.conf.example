@@ -1,0 +1,10 @@
+#
+# $id$
+#
+loglevel = debug
+dbname = vam
+dbhost = 127.0.0.1
+dblogin = vam
+dbpassword = password
+dbengine = postgres
+#EOF

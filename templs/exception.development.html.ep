@@ -1,0 +1,13 @@
+%#
+%# $Id: exception.html.ep 627 2017-04-15 13:02:08Z ziggi $
+%#
+% layout 'default';
+% title 'Error';
+
+<h5>Oops... Exception</h5>
+
+<pre>  
+%= $exception
+</pre>
+
+%#EOF

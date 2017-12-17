@@ -1,0 +1,9 @@
+% layout 'default';
+% title 'VAM';
+
+% use Mojo::Util qw(dumper html_unescape unquote);
+
+<h5 class="text-center">Hi! How are you there?</h5>
+
+%#EOF
+

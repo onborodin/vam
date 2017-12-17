@@ -1,0 +1,15 @@
+Source: vam
+Section: utils
+Priority: extra
+Maintainer: borodin@unix7.org
+Build-Depends: debhelper (>=9), dh-autoreconf, libdbd-pg-perl, libdbi-perl, 
+    libapache-htpasswd-perl, libfilesys-df-perl, libmojolicious-perl
+Standards-Version: 3.9.8
+Homepage: http://wiki.unix7.org/perl/vam
+
+Package: vam
+Architecture: all
+Multi-Arch: foreign
+Depends: libdbd-pg-perl, libdbi-perl, libapache-htpasswd-perl,
+    libfilesys-df-perl, libmojolicious-perl, libio-socket-ip-perl
+Description: 

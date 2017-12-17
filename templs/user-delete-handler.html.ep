@@ -1,0 +1,39 @@
+%#
+%# $Id$
+%#
+% layout 'default';
+% title 'VAM';
+
+% use Mojo::Util qw(dumper);
+
+% my $u = $c->app->user;
+
+% my $user_id = $c->req->param('user_id') || 0;
+% my $profile = $u->user_profile($user_id);
+
+% if ($profile) {
+    % my $name = $profile->{name};
+    % my $address = $profile->{address};
+
+    % my $res = $u->user_delete($user_id);
+
+    % if ($res) {
+        <div class="callout success">User <%= $address %> has been deleted</div>
+    % }
+
+    % unless ($res) {
+        <div class="callout alert">User <%= $address %> was not deleted</div>
+    % }
+    <a class="float-left button tiny" href="/user/list %>">
+        <i class="fi-arrow-left"></i>
+    </a>
+% }
+
+% unless ($profile) {
+    <div class="callout warning">User with id <%= $user_id %> not exist</div>
+    <a class="float-left button tiny" href="/user/list">
+        <i class="fi-arrow-left"></i>
+    </a>
+% }
+%#EOF
+

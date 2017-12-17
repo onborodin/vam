@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+%:
+#	dh $@ --with autoreconf 
+	dh $@
+#	./configure --prefix=/usr  --with-confdir=/etc/recvi
+#	dh_build
+#	dh_install
+#	dh_auto_clean
+
+override_dh_auto_configure:
+	./configure --prefix=/usr
+
+#EOF

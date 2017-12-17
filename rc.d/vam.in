@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# $Id$
+#
+# PROVIDE: vam
+# REQUIRE: LOGIN
+
+. /etc/rc.subr
+
+name="vam"
+rcvar="vam_enable"
+
+pidfile="@APP_RUNDIR@"/vam.pid
+command="@prefix@/sbin/${name}"
+command_args=""
+procname="@prefix@/sbin/${name}"
+command_interpreter="@perl@"
+
+load_rc_config ${name}
+
+: ${pgagent_enable:="NO"}
+
+run_rc_command "$1"
+#EOF

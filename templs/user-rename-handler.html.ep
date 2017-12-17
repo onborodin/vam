@@ -1,0 +1,47 @@
+%#
+%# $Id$
+%#
+% layout 'default';
+% title 'VAM';
+
+% use Mojo::Util qw(dumper);
+
+% my $u = $c->app->user;
+
+% my $new_name = $c->req->param('user_name');
+% my $user_id = $c->req->param('user_id') || 0;
+% my $profile = $u->user_profile($user_id);
+
+% if ($profile) {
+    % my $address = $profile->{address};
+
+    % my $cid = $u->user_exist($new_name);
+
+    % if ($cid) {
+        <div class="callout warning">User <%= $address %> already exists</div>
+    % }
+
+    % unless ($cid) {
+        % my $res = $u->user_update($user_id, name => $new_name);
+        % if ($res) {
+            <div class="callout success">User <%= $address %> has been updated.</div>
+        % }
+
+        % unless ($res) {
+            <div class="callout alert">User <%= $address %> was not updated.</div>
+        % }
+    % }
+    <a class="float-left button tiny" href="/user/list">
+        <i class="fi-arrow-left"></i>
+    </a>
+% }
+
+% unless ($profile) {
+    <div class="callout warning">User with id <%= $user_id %> not exist</div>
+
+    <a class="float-left button tiny" href="/user/list">
+        <i class="fi-arrow-left"></i>
+    </a>
+% }
+
+%#EOF

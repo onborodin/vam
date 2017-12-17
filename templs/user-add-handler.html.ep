@@ -1,0 +1,42 @@
+%#
+%# $Id$
+%#
+% layout 'default';
+% title 'VAM';
+
+% use Mojo::Util qw(dumper);
+
+% my $u = $c->app->user;
+
+% my $user_name = $c->req->param('user_name');
+% my $password = $c->req->param('password');
+% my $gecos = $c->req->param('gecos');
+% my $quota = $c->req->param('quota');
+
+
+% my $cid = $u->user_exist($user_name);
+
+% if ($cid) {
+    <div class="callout warning">User <%= $user_name %> already exists</div>
+% }
+
+% unless ($cid) {
+    % my $id = $u->user_add($user_name, $password, $gecos, $quota);
+    % if ($id) {
+        <div class="callout success">User <%= $user_name %> has been added.</div>
+    % }
+
+    % unless ($id) {
+        <div class="callout alert">User <%= $user_name %> was not added.</div>
+    % }
+% }
+
+<a class="float-left button tiny" href="/user/list">
+        <i class="fi-arrow-left"></i>
+</a>
+
+%#EOF
+
+
+
+

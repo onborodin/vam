@@ -1,0 +1,58 @@
+%#
+%# $Id: login.html.ep 634 2017-04-15 13:55:49Z ziggi $
+%#
+<html class="no-js" lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="/css/foundation-float.min.css">
+        <link rel="stylesheet" href="/css/app.css">
+
+        <link rel="stylesheet" href="/icons/foundation-icons.css">
+
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/foundation.min.js"></script>
+    </head>
+    <body>
+
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="small-3 columns hide-for-small">&nbsp;</div>
+            <div class="small-6 columns text-center">
+                <div class="row">
+                    <div class="columns">
+
+                        <form accept-charset="UTF-8" method="post" action="/login">
+                            <div class="row column">
+                                <h4 class="text-center">Login with your username</h4>
+                                <label>Username
+                                    <input type="text" name="login" placeholder="username" />
+                                </label>
+                                <label>Password
+                                    <input type="password" name="password" placeholder="password" />
+                                </label>
+                                <p>
+                                    <button type="submit" class="button">Log In</button>
+                                </p>
+                                <p class="text-center"></p>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="small-3 columns hide-for-small">&nbsp;</div>
+        </div>
+
+        <hr/>
+        <div class="row">
+            <p class="text-center"><small>Made by <a href="http://wiki.unix7.org">Borodin Oleg</a></small></p>
+        </div>
+
+        <script src="/js/app.js"></script>
+    </body>
+</html>
+<!- EOF ->
+%# EOF

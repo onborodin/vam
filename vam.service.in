@@ -1,0 +1,12 @@
+[Unit]
+Description=vam
+
+[Service]
+Type=forking
+PIDFile=@APP_RUNDIR@/vam.pid
+ExecStart=@prefix@/sbin/vam
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+

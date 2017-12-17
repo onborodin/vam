@@ -1,0 +1,41 @@
+%#
+%# $Id$
+%#
+% layout 'default';
+% title 'VAM';
+
+% use Mojo::Util qw(dumper);
+
+% my $u = $c->app->user;
+
+% my $user_id = $c->req->param('user_id') || 0;
+% my $profile = $u->user_profile($user_id);
+
+% if ($profile) {
+    % my $user_name = $profile->{name};
+    % my $domain_name = $profile->{domain_name};
+    % my $gecos = $profile->{gecos};
+    % my $address = $profile->{address};
+
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+          <div class="medium-6 medium-centered cell">
+
+            <form accept-charset="UTF-8" action="/user/delete/handler" method="post" data-abide novalidate>
+                <h5 class="text-center">Delete user <%= $address %></h5>
+                <input type="hidden" name="user_id" value="<%= $user_id %>"/>
+                <div class="text-center">
+                    <button type="submit" class="button">Accept</button>
+                    <a class="button" href="/user/list %>">Escape</a>
+                </div>
+            </form>
+
+          </div>
+        </div>
+    </div>
+% }
+
+% unless ($profile) {
+        <div class="callout warning">User with id <%= $user_id %> not exist</div>
+% }
+%#EOF

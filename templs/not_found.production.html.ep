@@ -1,0 +1,9 @@
+%#
+%# $Id: not_found.html.ep 627 2017-04-15 13:02:08Z ziggi $
+%#
+% layout 'default';
+% title '404 Not found';
+
+<h5>404 Page not found</h5>
+
+%#EOF
