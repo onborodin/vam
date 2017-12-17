@@ -1,4 +1,4 @@
-# VAM - Web mail account manager
+# VAM - OpenVPN account manager
 
 ### The application wrote with
 
