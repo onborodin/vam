@@ -24,7 +24,7 @@
     % unless ($res) {
         <div class="callout alert">User <%= $address %> was not deleted</div>
     % }
-    <a class="float-left button tiny" href="/user/list %>">
+    <a class="float-left button tiny" href="/user/list">
         <i class="fi-arrow-left"></i>
     </a>
 % }
