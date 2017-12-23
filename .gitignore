@@ -1,0 +1,13 @@
+Makefile
+config.log
+config.status
+debian/files
+debian/vam.debhelper.log
+debian/vam.substvars
+debian/vam/
+init.d/vam
+rc.d/vam
+vam
+vam-helper
+vam.service
+*~
