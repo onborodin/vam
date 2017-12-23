@@ -234,6 +234,9 @@ Mojo::JSON
 Mojo::Server::Prefork
 Mojo::UserAgent
 Mojo::Util
+DBI
+DBD::Pg
+DBD::SQLite
 ])
 
 AC_OUTPUT([

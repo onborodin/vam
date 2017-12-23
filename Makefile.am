@@ -3,12 +3,12 @@
 #
 AUTOMAKE_OPTIONS = foreign no-dependencies no-installinfo
 
-EXTRA_DIST = \
-	LICENSE
-
 install-data-hook:
 if FREEBSD_OS
-	chmod a+x $(DESTDIR)/${etcdir}/rc.d/vam
+	chmod a+x $(DESTDIR)/${sysconfdir}/rc.d/vam
+endif
+if LINUX_OS
+	chmod a+x $(DESTDIR)/${sysconfdir}/init.d/vam
 endif
 	$(INSTALL) -d -m 750 -o $(APP_USER) -g $(APP_GROUP) $(DESTDIR)$(APP_LOGDIR)
 	$(INSTALL) -d -m 750 -o $(APP_USER) -g $(APP_GROUP) $(DESTDIR)$(APP_RUNDIR)
@@ -17,8 +17,17 @@ endif
 	done
 
 if FREEBSD_OS
-etcdir = @prefix@/etc
+etcdir = @sysconfdir@
 nobase_etc_SCRIPTS = rc.d/vam
+endif
+
+if LINUX_OS
+if SYSTEMD
+systemddir = /lib/systemd/system
+nobase_systemd_DATA = vam.service
+endif
+etcdir = @sysconfdir@
+nobase_etc_SCRIPTS = init.d/vam
 endif
 
 sbin_SCRIPTS = vam vam-helper

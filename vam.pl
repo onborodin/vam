@@ -55,7 +55,7 @@ sub read {
 #--- DB ---
 #----------
 
-package aDB;
+package aDBI;
 
 use strict;
 use warnings;
@@ -126,20 +126,20 @@ sub exec {
                 ':dbname='.$self->database.
                 ';host='.$self->host;
     my $dbi;
-    eval {
+#    eval {
         $dbi = DBI->connect($dsn, $self->login, $self->password, {
             RaiseError => 1,
             PrintError => 0,
             AutoCommit => 1
         });
-    };
+#    };
     $self->error($@);
     return undef if $@;
 
     my $sth;
-    eval {
+#    eval {
         $sth = $dbi->prepare($query);
-    };
+#    };
     $self->error($@);
     return undef if $@;
 
@@ -162,20 +162,20 @@ sub exec1 {
                 ':dbname='.$self->database.
                 ';host='.$self->host;
     my $dbi;
-    eval {
+#    eval {
         $dbi = DBI->connect($dsn, $self->login, $self->password, {
             RaiseError => 1,
             PrintError => 0,
             AutoCommit => 1
         });
-    };
+#    };
     $self->error($@);
     return undef if $@;
 
     my $sth;
-    eval {
+#    eval {
         $sth = $dbi->prepare($query);
-    };
+#    };
     $self->error($@);
     return undef if $@;
 
@@ -194,19 +194,19 @@ sub do {
                 ':dbname='.$self->database.
                 ';host='.$self->host;
     my $dbi;
-    eval {
+#    eval {
         $dbi = DBI->connect($dsn, $self->login, $self->password, {
             RaiseError => 1,
             PrintError => 0,
             AutoCommit => 1
         });
-    };
+#    };
     $self->error($@);
     return undef if $@;
     my $rows;
-    eval {
+#    eval {
         $rows = $dbi->do($query);
-    };
+#    };
     $self->error($@);
     return undef if $@;
 
@@ -404,10 +404,10 @@ sub ucheck {
     return undef unless $login;
     my $pwfile = $self->pwfile or return undef;
     my $res = undef;
-    eval {
+#    eval {
         my $ht = Apache::Htpasswd->new({ passwdFile => $pwfile, ReadOnly => 1 });
         $res = $ht->htCheckPassword($login, $password);
-    };
+#    };
     1; #$res;
 }
 
@@ -566,8 +566,8 @@ $app->config(crtfile => '@app_confdir@/vam.crt');
 $app->config(keyfile => '@app_confdir@/vam.key');
 
 $app->config(listenaddr4 => '0.0.0.0');
-$app->config(listenaddr6 => '[::]');
-$app->config(listenport => '8087');
+#$app->config(listenaddr6 => '[::]');
+$app->config(listenport => '8079');
 
 $app->config(dbname => '@app_datadir@/vam.db');
 $app->config(dbhost => '');
@@ -595,7 +595,7 @@ $app->helper(
     db => sub {
         my $engine = 'SQLite' if $app->config('dbengine') =~ /sqlite/i;
         $engine = 'Pg' if $app->config('dbengine') =~ /postgres/i;
-        state $db = aDB->new(
+        state $db = aDBI->new(
             database => $app->config('dbname'),
             host => $app->config('dbhost'),
             login => $app->config('dblogin'),
@@ -681,9 +681,9 @@ $server->heartbeat_timeout(60);
 #--------------
 
 unless ($nofork) {
-    my $d = Daemon->new;
     my $user = $app->config('user');
     my $group = $app->config('group');
+    my $d = Daemon->new;
     $d->fork;
     $app->log(Mojo::Log->new(
                 path => $app->config('logfile'),
@@ -729,36 +729,37 @@ local $SIG{HUP} = sub {
     ));
 };
 
+# For future usage, maybe
 
-my $sub = Mojo::IOLoop::Subprocess->new;
-$sub->run(
-    sub {
-        my $subproc = shift;
-        my $loop = Mojo::IOLoop->singleton;
-        my $id = $loop->recurring(
-            300 => sub {
-            }
-        );
-        $loop->start unless $loop->is_running;
-        1;
-    },
-    sub {
-        my ($subprocess, $err, @results) = @_;
-        $app->log->info('Exit subprocess');
-        1;
-    }
-);
+#my $sub = Mojo::IOLoop::Subprocess->new;
+#$sub->run(
+#    sub {
+#        my $subproc = shift;
+#        my $loop = Mojo::IOLoop->singleton;
+#        my $id = $loop->recurring(
+#            300 => sub {
+#            }
+#        );
+#        $loop->start unless $loop->is_running;
+#        1;
+#    },
+#    sub {
+#        my ($subprocess, $err, @results) = @_;
+#        $app->log->info('Exit subprocess');
+#        1;
+#    }
+#);
 
-my $pid = $sub->pid;
-$app->log->info("Subrocess $pid start ");
+#my $pid = $sub->pid;
+#$app->log->info("Subrocess $pid start ");
 
-$server->on(
-    finish => sub {
-        my ($prefork, $graceful) = @_;
-        $app->log->info("Subrocess $pid stop");
-        kill('INT', $pid);
-    }
-);
+#$server->on(
+#    finish => sub {
+#        my ($prefork, $graceful) = @_;
+#        $app->log->info("Subrocess $pid stop");
+#        kill('INT', $pid);
+#    }
+#);
 
 $server->run;
 #EOF

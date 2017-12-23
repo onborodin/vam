@@ -6,6 +6,8 @@ Type=forking
 PIDFile=@APP_RUNDIR@/vam.pid
 ExecStart=@prefix@/sbin/vam
 ExecReload=/bin/kill -HUP $MAINPID
+ExecStartPre=/bin/mkdir -p @APP_RUNDIR@
+ExecStartPre=/bin/chown -R @APP_USER@:@APP_GROUP@  @APP_RUNDIR@
 
 [Install]
 WantedBy=multi-user.target
